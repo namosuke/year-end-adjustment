@@ -1,0 +1,10 @@
+{
+  "name": "「年末」を「調整」してくれるアプリ",
+  "short_name": "「年末」を「調整」",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/icon.jpg"
+    }
+  ]
+}

@@ -16,8 +16,14 @@ export function meta({}: Route.MetaArgs) {
 export default function Home() {
   return (
     <main>
-      <header className="bg-sky-200 h-36">
-        <h1>「年末」を「調整」してくれるアプリ</h1>
+      <header className="bg-[url('/header-bg.jpg')] bg-cover bg-no-repeat bg-center h-36 max-w-5xl mx-auto">
+        <h1 className="h-full flex items-center justify-center">
+          <img
+            src="/title.png"
+            alt="「年末」を「調整」してくれるアプリ"
+            className="max-h-24 max-w-full block px-2"
+          />
+        </h1>
       </header>
       <div className="w-fit mx-auto p-5 leading-7">
         <p>
