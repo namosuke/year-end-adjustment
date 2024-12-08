@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Route } from "./+types/home";
 import classNames from "classnames";
 
@@ -62,8 +62,12 @@ function Calendar() {
       random: number;
     }[]
   >([{ month: 12, day: 31, random: 0.2 }]);
+  const audioRef = useRef<HTMLAudioElement>(null);
   const cellAnimationEnd = useCallback(() => {
-    new Audio("/stamp.mp3").play();
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play();
+    }
     document.body.classList.remove("animate-shake");
     void document.body.offsetWidth;
     document.body.classList.add("animate-shake");
@@ -72,9 +76,76 @@ function Calendar() {
   if (!date) return null;
   return (
     <div className="overflow-hidden">
-      <button>◀</button>
-      <span>{date.month}月</span>
-      <button>▶</button>
+      <audio src="/stamp.mp3" ref={audioRef} />
+      <div className="relative mx-auto w-96 max-w-full pb-2 flex items-center">
+        <button
+          type="button"
+          className="border-2 py-1 px-2 text-gray-500 border-slate-400 active:bg-slate-100 rounded-full absolute left-0 leading-none"
+          onClick={() => {
+            const now = new Date();
+            setDate({
+              year: now.getFullYear(),
+              month: now.getMonth() + 1,
+            });
+          }}
+        >
+          今日
+        </button>
+        <div className="flex w-fit items-center gap-1 mx-auto">
+          <button
+            type="button"
+            className="rounded-full p-2 active:bg-gray-100"
+            onClick={() => {
+              setDate({
+                year: date.year - (date.month === 1 ? 1 : 0),
+                month: date.month === 1 ? 12 : date.month - 1,
+              });
+            }}
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+          </button>
+          <div>
+            <span className="text-2xl font-bold">{date.month}</span>
+            <span className="text-lg font-bold ml-1">月</span>
+          </div>
+          <button
+            type="button"
+            className="rounded-full p-2 active:bg-gray-100"
+            onClick={() => {
+              setDate({
+                year: date.year + (date.month === 12 ? 1 : 0),
+                month: date.month === 12 ? 1 : date.month + 1,
+              });
+            }}
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
       <div className="overflow-x-auto pb-12">
         <div className="grid grid-cols-7 border-gray-400 border-t border-l max-w-96 mx-auto min-w-[340px]">
           {["日", "月", "火", "水", "木", "金", "土"].map((day) => (
@@ -99,7 +170,11 @@ function Calendar() {
               type="button"
               className={classNames(
                 "border-gray-400 border-r border-b aspect-square relative active:bg-gray-50",
-                day === 0 && "bg-gray-100"
+                day === 0 && "bg-gray-100",
+                date.year === new Date().getFullYear() &&
+                  date.month === new Date().getMonth() + 1 &&
+                  day === new Date().getDate() &&
+                  "bg-yellow-100"
               )}
               disabled={day === 0}
               onClick={() => {
@@ -151,14 +226,7 @@ function Calendar() {
                             )?.random ?? 0)
                         }deg)`,
                       }}
-                      ref={(element) => {
-                        if (element) {
-                          element.addEventListener(
-                            "animationend",
-                            cellAnimationEnd
-                          );
-                        }
-                      }}
+                      onAnimationEnd={cellAnimationEnd}
                     >
                       <div className="relative size-full">
                         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-red-500">
