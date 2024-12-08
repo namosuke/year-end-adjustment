@@ -10,19 +10,6 @@ export function meta({}: Route.MetaArgs) {
       content:
         "このアプリでは「年末」を「調整」できます。※年末調整ではありません。",
     },
-    {
-      property: "og:title",
-      content: "「年末」を「調整」してくれるアプリ",
-    },
-    {
-      property: "og:description",
-      content:
-        "このアプリでは「年末」を「調整」できます。※年末調整ではありません。",
-    },
-    {
-      property: "og:image",
-      content: "https://year-end-adjustment.vercel.app/icon.jpg",
-    },
   ];
 }
 

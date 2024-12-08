@@ -29,6 +29,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+          property="og:title"
+          content="「年末」を「調整」してくれるアプリ"
+        />
+        <meta
+          property="og:description"
+          content="このアプリでは「年末」を「調整」できます。※年末調整ではありません。"
+        />
+        <meta
+          property="og:image"
+          content="https://year-end-adjustment.vercel.app/icon.jpg"
+        />
         <Meta />
         <Links />
       </head>
