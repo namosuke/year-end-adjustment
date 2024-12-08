@@ -16,6 +16,11 @@ export const links: Route.LinksFunction = () => [
     rel: "manifest",
     href: "/site.webmanifest",
   },
+  {
+    rel: "icon",
+    type: "image/x-icon",
+    href: "/favicon.ico",
+  },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
