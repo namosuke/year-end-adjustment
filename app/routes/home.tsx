@@ -83,10 +83,10 @@ function Calendar() {
   return (
     <div className="overflow-hidden">
       <audio src="/stamp.mp3" ref={audioRef} />
-      <div className="relative mx-auto w-96 max-w-full pb-2 flex items-center">
+      <div className="relative mx-auto w-[400px] max-w-full pb-2 flex items-center">
         <button
           type="button"
-          className="border-2 py-1 px-2 text-gray-500 border-slate-400 active:bg-slate-100 rounded-full absolute left-0 leading-none"
+          className="border-2 py-1 px-2 text-gray-500 border-slate-400 active:bg-slate-100 rounded-full absolute left-2 leading-none"
           onClick={() => {
             const now = new Date();
             setDate({
@@ -122,7 +122,7 @@ function Calendar() {
               />
             </svg>
           </button>
-          <div>
+          <div className="relative -top-0.5">
             <span className="text-2xl font-bold">{date.month}</span>
             <span className="text-lg font-bold ml-1">月</span>
           </div>
@@ -220,7 +220,7 @@ function Calendar() {
                       yearEnd.month === date.month && yearEnd.day === day
                   ) && (
                     <div
-                      className="absolute bottom-0 right-0 rounded-full border-red-500 border-2 w-[88%] aspect-square animate-stamp z-10 pointer-events-none"
+                      className="absolute bottom-0 right-0 rounded-full border-red-500 border-2 size-[88%] max-w-[88%] max-h-[88%] aspect-square animate-stamp z-10 pointer-events-none"
                       style={{
                         transform: `rotate(${
                           -25 +
