@@ -68,12 +68,8 @@ function Calendar() {
       random: number;
     }[]
   >([{ month: 12, day: 31, random: 0.2 }]);
-  const audioRef = useRef<HTMLAudioElement>(null);
   const cellAnimationEnd = useCallback(() => {
-    if (audioRef.current) {
-      audioRef.current.currentTime = 0;
-      audioRef.current.play();
-    }
+    new Audio("/stamp.mp3").play();
     document.body.classList.remove("animate-shake");
     void document.body.offsetWidth;
     document.body.classList.add("animate-shake");
@@ -82,9 +78,6 @@ function Calendar() {
   if (!date) return null;
   return (
     <div className="overflow-hidden">
-      <audio ref={audioRef} preload="auto">
-        <source src="/stamp.mp3" type="audio/mpeg" />
-      </audio>
       <div className="relative mx-auto w-[400px] max-w-full pb-2 flex items-center">
         <button
           type="button"
