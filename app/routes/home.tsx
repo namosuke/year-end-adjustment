@@ -230,7 +230,50 @@ function Calendar() {
                     >
                       <div className="relative size-full">
                         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-red-500">
-                          <p className="text-xs -mb-1 mt-0.5">2024</p>
+                          <p className="text-xs -mb-1 mt-0.5">
+                            {(() => {
+                              // 西暦元年からdate.year-1年までに訪れた2/29の数
+                              const leapYearCount =
+                                Math.floor((date.year - 1) / 4) -
+                                Math.floor((date.year - 1) / 100) +
+                                Math.floor((date.year - 1) / 400);
+                              return (
+                                // 2/29を除外してカウント
+                                (date.year - 1) *
+                                  yearEnds.filter(
+                                    (yearEnd) =>
+                                      !(
+                                        yearEnd.month === 2 &&
+                                        yearEnd.day === 29
+                                      )
+                                  ).length +
+                                // 2/29がある場合のみ閏年をカウント
+                                leapYearCount *
+                                  yearEnds.filter(
+                                    (yearEnd) =>
+                                      yearEnd.month === 2 && yearEnd.day === 29
+                                  ).length +
+                                [...yearEnds]
+                                  .sort(
+                                    (a, b) =>
+                                      a.month * 100 +
+                                      a.day -
+                                      (b.month * 100 + b.day)
+                                  )
+                                  .findIndex(
+                                    (yearEnd) =>
+                                      yearEnd.month === date.month &&
+                                      yearEnd.day === day
+                                  ) +
+                                // 閏年じゃなかったら-1
+                                (date.year % 4 === 0 &&
+                                (date.year % 100 !== 0 || date.year % 400 === 0)
+                                  ? 0
+                                  : -1) +
+                                1
+                              );
+                            })()}
+                          </p>
                           <p className="text-md font-extrabold whitespace-nowrap">
                             年末
                           </p>
