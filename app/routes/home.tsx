@@ -82,7 +82,9 @@ function Calendar() {
   if (!date) return null;
   return (
     <div className="overflow-hidden">
-      <audio src="/stamp.mp3" ref={audioRef} />
+      <audio ref={audioRef} preload="auto">
+        <source src="/stamp.mp3" type="audio/mpeg" />
+      </audio>
       <div className="relative mx-auto w-[400px] max-w-full pb-2 flex items-center">
         <button
           type="button"
