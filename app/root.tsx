@@ -39,7 +39,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
         />
         <meta
           property="og:image"
-          content="https://year-end-adjustment.vercel.app/icon.jpg"
+          content="https://year-end-adjustment.vercel.app/ogp.png"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:image"
+          content="https://year-end-adjustment.vercel.app/ogp.png"
         />
         <Meta />
         <Links />
