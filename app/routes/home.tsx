@@ -264,12 +264,16 @@ function Calendar() {
                                     (yearEnd) =>
                                       yearEnd.month === date.month &&
                                       yearEnd.day === day
-                                  ) +
-                                // 閏年じゃなかったら-1
+                                  ) -
+                                // 閏年じゃなかったら含まれてる閏年分減らす
                                 (date.year % 4 === 0 &&
                                 (date.year % 100 !== 0 || date.year % 400 === 0)
                                   ? 0
-                                  : -1) +
+                                  : yearEnds.filter(
+                                      (yearEnd) =>
+                                        yearEnd.month === 2 &&
+                                        yearEnd.day === 29
+                                    ).length) +
                                 1
                               );
                             })()}
