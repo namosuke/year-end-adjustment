@@ -292,6 +292,28 @@ function Calendar() {
           ))}
         </div>
       </div>
+      <footer className="text-xs mt-8 mb-8 text-gray-400 flex justify-center divide-x divide-gray-200">
+        {[
+          {
+            url: "https://twitter.com/barley_ural",
+            label: "@barley_ural",
+          },
+          {
+            url: "https://github.com/namosuke/year-end-adjustment",
+            label: "ソースコード",
+          },
+          {
+            url: "https://qiita.com/namosuke/items/9b8f381c94e2452d2f6f",
+            label: "技術記事",
+          },
+        ].map(({ url, label }) => (
+          <div className="px-3" key={label}>
+            <a href={url} target="_blank" className="hover:underline">
+              {label}
+            </a>
+          </div>
+        ))}
+      </footer>
     </div>
   );
 }
