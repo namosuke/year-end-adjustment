@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import type { Route } from "./+types/home";
 import classNames from "classnames";
 
@@ -69,7 +69,6 @@ function Calendar() {
     }[]
   >([{ month: 12, day: 31, random: 0.2 }]);
   const cellAnimationEnd = useCallback(() => {
-    new Audio("/stamp.mp3").play();
     document.body.classList.remove("animate-shake");
     void document.body.offsetWidth;
     document.body.classList.add("animate-shake");
